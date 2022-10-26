@@ -1,5 +1,6 @@
 package tests;
 
+import manage.MyDataProvider;
 import model.Board;
 import model.User;
 import org.testng.Assert;
@@ -18,10 +19,10 @@ public class BoardCreation extends TestBase{
         app.getUser().pause(2000);
     }
 
-    @Test
-    public void boardCreation1(){
+    @Test(dataProvider ="boardDataModel",dataProviderClass = MyDataProvider.class)
+    public void boardCreation1(Board board){
 
-        Board board = new Board().withTitle("QA35");
+      //  Board board = new Board().withTitle("QA35");
 
         int boardCountBeforeCreation = app.getBoard().getBoardCount();
 
@@ -37,6 +38,26 @@ public class BoardCreation extends TestBase{
 
         Assert.assertEquals(boardCountAfterCreation, boardCountBeforeCreation + 1);
     }
+
+    @Test(dataProvider = "boardData",dataProviderClass = MyDataProvider.class)
+    public void boardCreation2(String title) {
+        // Board board = new Board().withTitle("QA35");
+
+        int boardCountBeforeCreation = app.getBoard().getBoardCount();
+
+        app.getBoard().initBoardCreation();
+        app.getBoard().fillInBoardCreationForm(title);
+        app.getBoard().scrolldownTheForm();
+        app.getBoard().pause(2000);
+        app.getBoard().submitBoardCreation();
+        app.getBoard().pause(2000);
+        app.getBoard().returnToHomePage();
+
+        int boardCountAfterCreation = app.getBoard().getBoardCount();
+
+        Assert.assertEquals(boardCountAfterCreation, boardCountBeforeCreation + 1);
+    }
+
 }
 
 

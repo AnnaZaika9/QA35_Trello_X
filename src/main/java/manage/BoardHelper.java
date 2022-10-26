@@ -24,6 +24,12 @@ public class BoardHelper extends HelperBase{
         type(By.cssSelector("[type='text']"),board.getTitle());
         // type(By.xpath("//input[@data-test-id='create-board-title-input']"),board.getTitle());
     }
+    public void fillInBoardCreationForm(String title) {
+        //type(By.cssSelector("[data-test-id='create-board-title-input']"),board.getTitle());
+        // type(By.xpath("//input[@data-test-id='create-board-title-input']"),board.getTitle());
+        type(By.cssSelector("[data-test-id='create-board-title-input']"),title);
+
+    }
 
     public void scrolldownTheForm(){
         Actions action= new Actions(wd);
